@@ -8,7 +8,7 @@ export type Produto = {
     thumbnail: string;
 };
 
-export type RespostaPrdutos = { 
+export type RespostaProdutos = { 
     products: Produto[];
     total: number;
     skip: number;
