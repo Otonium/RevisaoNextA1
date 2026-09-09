@@ -15,6 +15,39 @@ export default function ProdutosClient() {
     //Armazena mensagem de erro
     const [erro, setErro] = useState("");
     
+    //-----Busca na API----------------------------------------------
+    const [termo, setTermo] = useState("");
+    async function pesquisarProdutos() {
+        try {
+            setCarregando(true);
+            setErro("");
+
+            const resposta = await fetch(
+                //----------------------
+                //   URL da API
+                //----------------------
+                `https://dummyjson.com/products/search?q=${termo}`
+            );
+
+            if (!resposta.ok) {
+                throw new Error("Não foi possivel pesquisar os produtos.")
+            }
+
+            const dados: RespostaProdutos = await resposta.json();
+
+            setProdutos(dados.products);
+        } catch (error) {
+            if (error instanceof Error) {
+                setErro(error.message);
+            } else {
+                setErro("Ocorreu um erro desconhecido.");
+            }
+        } finally { 
+            setCarregando(false);
+        }
+    }
+    
+    
     //--Busca local de produtos------------------------------------
     const [busca, setBusca] = useState("");
     //------------------------------------------------------------
@@ -58,19 +91,34 @@ export default function ProdutosClient() {
                 Atualizar produtos
             </button>
 
-            <input
+
+            <form onSubmit={(event) => {
+                event.preventDefault();
+                pesquisarProdutos();
+            }}
+            >
+                <input type="text" placeholder="Pesquise um produto..." value={termo} onChange={(event) => setTermo(event.target.value)}/>
+
+                <button type="submit">
+                    Pesquisar
+                </button>
+            </form>
+
+
+
+            {/* <input
                 type="text"
                 placeholder="Digite o nome de um produto..."
                 value={busca}
                 onChange={(event) => setBusca(event.target.value)}
-            />
+            /> */}
 
-            {carregando && <p>Carregando produtos...</p>}
+            {/* {carregando && <p>Carregando produtos...</p>}
             {erro && <p>Erro: {erro}</p>}
             {!carregando && !erro && (
                 <section>
                     {/* --Busca local de produtos-- */}
-                    {produtosFiltrados.map((produto) => (
+                    {/* {produtosFiltrados.map((produto) => (
                         <article key={produto.id}>
                             <img
                                 src={produto.thumbnail}
@@ -83,7 +131,12 @@ export default function ProdutosClient() {
                         </article>
                     ))}
                 </section>
-            )}
+            )} */} 
         </main>
     );
 }
+
+
+
+
+{/* Criar API interna com Route Handler */}
