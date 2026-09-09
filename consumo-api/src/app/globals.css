@@ -1,26 +1,43 @@
+/* Renderiza pagina limpa, Fundo cinza claro e texto em azul claro
+    conteudo centralizado em area de ate 1200px,
+    um titulo h1 no topo, grade de cards (com articles)
+    e cada card tem imagem, titulo, texto e botao */
+
+/* --------------------------------------------------- 1. CONFIGURAÇÃO GERAL DE TODOS OS ELEMENTOS --------------------------------------------------- */
+/* Faz com que padding e border sejam incluídos dentro da largura e altura definidas do elemento. */
 * {
 box-sizing: border-box;
 }
+
+/*Definição do body: remove margem padrao, cor cinza, muda cor dos textos e fonte*/
 body {
 margin: 0;
 background: #f4f6f8;
 color: #1e293b;
 font-family: Arial, Helvetica, sans-serif;
 }
+
+/*Configurar tag (seletor) main, largura, centraliza...*/
 main {
 max-width: 1200px;
 margin: 0 auto;
 padding: 32px 20px;
 }
+
 h1 {
 margin-bottom: 8px;
 }
+
+/*agrupar conteúdos temáticos e relacionados acompanhados de um título*/
+/*Transforma em grid*/
 section {
 display: grid;
 grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
 gap: 20px;
 margin-top: 28px;
 }
+
+/*bloco independente*/
 article {
 display: flex;
 flex-direction: column;
@@ -55,6 +72,8 @@ color: #ffffff;
 font-weight: bold;
 cursor: pointer;
 }
+
+/*Efeito*/
 button:hover {
 background: #1d4ed8;
 }
